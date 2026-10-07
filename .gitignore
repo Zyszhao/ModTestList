@@ -1,0 +1,18 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+.vs/
+
+# Debug symbols: the shipped DLL is enough, symbols would just bloat the repo
+1.6/Assemblies/*.pdb
+
+# Verification scratch data
+Verify/out/
+Verify/out-e2e/
+Verify/tmp/
+
+# Your own test-run output. The tracked TestList/*.md are the checklists;
+# the *.feedback.md files hold personal test results and are not part of the mod.
+TestList/*.feedback.md

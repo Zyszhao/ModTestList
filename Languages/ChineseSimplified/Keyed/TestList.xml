@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- 状态 -->
+  <TestList_StatusPass>正常</TestList_StatusPass>
+  <TestList_StatusFail>异常</TestList_StatusFail>
+  <TestList_StatusUntested>未测试</TestList_StatusUntested>
+  <TestList_StatusPassLong>正常工作</TestList_StatusPassLong>
+  <TestList_StatusFailLong>异常</TestList_StatusFailLong>
+  <TestList_StatusUntestedLong>未测试</TestList_StatusUntestedLong>
+
+  <!-- 面板外壳 -->
+  <TestList_WindowTitle>测试清单</TestList_WindowTitle>
+  <TestList_TabChecklist>测试清单</TestList_TabChecklist>
+  <TestList_TabOutput>反馈文件</TestList_TabOutput>
+
+  <!-- 工具栏 -->
+  <TestList_Reload>重新读取</TestList_Reload>
+  <TestList_ReloadTip>重新从磁盘读取所有已启用模组的 /TestList 文件夹。</TestList_ReloadTip>
+  <TestList_ExpandAll>全部展开</TestList_ExpandAll>
+  <TestList_CollapseAll>全部折叠</TestList_CollapseAll>
+  <TestList_MarkAllPass>全部标记为正常</TestList_MarkAllPass>
+  <TestList_ClearAll>清空所有标记</TestList_ClearAll>
+  <TestList_CopyOutputPath>复制输出路径</TestList_CopyOutputPath>
+
+  <!-- 筛选行 -->
+  <TestList_Filter>筛选</TestList_Filter>
+  <TestList_FilterTip>只显示标题、路径或正文包含此文字的测试项。</TestList_FilterTip>
+  <TestList_ShowUntested>未测试</TestList_ShowUntested>
+  <TestList_ShowPass>正常</TestList_ShowPass>
+  <TestList_ShowFail>异常</TestList_ShowFail>
+  <TestList_HideTested>隐藏已测试</TestList_HideTested>
+  <TestList_OnlyFail>只看异常</TestList_OnlyFail>
+
+  <!-- 测试项 -->
+  <TestList_Feedback>反馈</TestList_Feedback>
+  <TestList_FeedbackPlaceholder>记录你观察到的现象...</TestList_FeedbackPlaceholder>
+  <TestList_NoFeedback>（无反馈）</TestList_NoFeedback>
+  <TestList_MarkPrompt>标记</TestList_MarkPrompt>
+
+  <!-- 空状态 -->
+  <TestList_NoDocuments>没有在任何已启用模组中找到 /TestList 测试清单。</TestList_NoDocuments>
+  <TestList_NoDocumentsHint>在模组根目录建立名为 TestList 的文件夹，放入 .md 或 .xml 测试清单，然后点击“重新读取”。</TestList_NoDocumentsHint>
+  <TestList_SearchFolders>已搜索的文件夹</TestList_SearchFolders>
+
+  <!-- 底部菜单栏按钮（按钮上显示的文字来自 MainButtonDef 的 label） -->
+  <TestList_OpenTestListButton>测试清单</TestList_OpenTestListButton>
+  <TestList_OpenTestListTip>打开 / 关闭测试清单面板。</TestList_OpenTestListTip>
+  <TestList_CloseWindowTip>关闭</TestList_CloseWindowTip>
+
+  <!-- 模组设置 -->
+  <TestList_SettingsOpenPanel>立即打开测试清单面板</TestList_SettingsOpenPanel>
+  <TestList_SettingsPanelOnlyInGame>只有在载入游戏后才能打开该面板。</TestList_SettingsPanelOnlyInGame>
+  <TestList_SettingsFoundFormat>找到 {0} 个清单文件、{1} 个测试项。</TestList_SettingsFoundFormat>
+
+  <!-- 计数与元信息 -->
+  <TestList_ProgressFormat>已测试 {0}/{1}  |  正常 {2}  异常 {3}  未测试 {4}</TestList_ProgressFormat>
+  <TestList_SummaryFormat>{0} 正常 / {1} 异常 / {2} 未测试</TestList_SummaryFormat>
+  <TestList_LineFormat>第 {0} 行</TestList_LineFormat>
+  <TestList_SourceXml>XML</TestList_SourceXml>
+  <TestList_SourceMd>Markdown</TestList_SourceMd>
+  <TestList_ParseErrorFormat>无法读取此测试清单：{0}</TestList_ParseErrorFormat>
+  <TestList_SaveStateIdle>已保存</TestList_SaveStateIdle>
+  <TestList_SaveStatePending>保存中...</TestList_SaveStatePending>
+  <TestList_SaveStateError>保存失败</TestList_SaveStateError>
+  <TestList_OutputPathFormat>写入位置:{0}</TestList_OutputPathFormat>
+  <TestList_Copied>已复制到剪贴板。</TestList_Copied>
+
+  <!-- 设置项文字 -->
+  <TestList_SettingEnable>启用游戏内测试清单面板</TestList_SettingEnable>
+  <TestList_SettingShowButton>在底部菜单栏显示测试清单按钮</TestList_SettingShowButton>
+  <TestList_SettingWindowWidth>面板宽度</TestList_SettingWindowWidth>
+  <TestList_SettingMaxBlockHeight>单个测试项内容区最大高度（超出后独立滚动）</TestList_SettingMaxBlockHeight>
+  <TestList_SettingAutoSaveDelay>修改后自动保存延迟（秒）</TestList_SettingAutoSaveDelay>
+  <TestList_SettingWriteShared>同时为每个模组写入合并的 /TestList/TestList.feedback.md</TestList_SettingWriteShared>
+  <TestList_SettingExtraPaths>额外扫描的文件夹（每行一个绝对路径）</TestList_SettingExtraPaths>
+  <TestList_SettingAutoExpandFirst>标记为异常时自动展开该项</TestList_SettingAutoExpandFirst>
+  <TestList_RestartRequired>修改后立即生效，面板会自动刷新。</TestList_RestartRequired>
+</LanguageData>

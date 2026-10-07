@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Statuses -->
+  <TestList_StatusPass>PASS</TestList_StatusPass>
+  <TestList_StatusFail>BROKEN</TestList_StatusFail>
+  <TestList_StatusUntested>UNTESTED</TestList_StatusUntested>
+  <TestList_StatusPassLong>Working</TestList_StatusPassLong>
+  <TestList_StatusFailLong>Broken</TestList_StatusFailLong>
+  <TestList_StatusUntestedLong>Untested</TestList_StatusUntestedLong>
+
+  <!-- Panel shell -->
+  <TestList_WindowTitle>Test Checklist</TestList_WindowTitle>
+  <TestList_TabChecklist>Checklist</TestList_TabChecklist>
+  <TestList_TabOutput>Feedback file</TestList_TabOutput>
+
+  <!-- Toolbar -->
+  <TestList_Reload>Reload</TestList_Reload>
+  <TestList_ReloadTip>Re-read every enabled mod's /TestList folder from disk.</TestList_ReloadTip>
+  <TestList_ExpandAll>Expand all</TestList_ExpandAll>
+  <TestList_CollapseAll>Collapse all</TestList_CollapseAll>
+  <TestList_MarkAllPass>Mark all passing</TestList_MarkAllPass>
+  <TestList_ClearAll>Clear all marks</TestList_ClearAll>
+  <TestList_CopyOutputPath>Copy output path</TestList_CopyOutputPath>
+
+  <!-- Filter row -->
+  <TestList_Filter>Filter</TestList_Filter>
+  <TestList_FilterTip>Show only entries whose title, path or body contains this text.</TestList_FilterTip>
+  <TestList_ShowUntested>Untested</TestList_ShowUntested>
+  <TestList_ShowPass>Working</TestList_ShowPass>
+  <TestList_ShowFail>Broken</TestList_ShowFail>
+  <TestList_HideTested>Hide tested</TestList_HideTested>
+  <TestList_OnlyFail>Only broken</TestList_OnlyFail>
+
+  <!-- Entries -->
+  <TestList_Feedback>Feedback</TestList_Feedback>
+  <TestList_FeedbackPlaceholder>Type what you observed...</TestList_FeedbackPlaceholder>
+  <TestList_NoFeedback>(no feedback)</TestList_NoFeedback>
+  <TestList_MarkPrompt>Mark</TestList_MarkPrompt>
+
+  <!-- Empty state -->
+  <TestList_NoDocuments>No /TestList checklist found in any enabled mod.</TestList_NoDocuments>
+  <TestList_NoDocumentsHint>Create a folder named 'TestList' at the root of a mod and put .md or .xml checklists inside it, then press Reload.</TestList_NoDocumentsHint>
+  <TestList_SearchFolders>Searched folders</TestList_SearchFolders>
+
+  <!-- The bottom-bar main button (its visible text is the <label> in the MainButtonDef) -->
+  <TestList_OpenTestListButton>Checklist</TestList_OpenTestListButton>
+  <TestList_OpenTestListTip>Open or close the test checklist panel.</TestList_OpenTestListTip>
+  <TestList_CloseWindowTip>Close</TestList_CloseWindowTip>
+
+  <!-- Mod settings -->
+  <TestList_SettingsOpenPanel>Open the checklist panel now</TestList_SettingsOpenPanel>
+  <TestList_SettingsPanelOnlyInGame>The panel can only be opened while a game is loaded.</TestList_SettingsPanelOnlyInGame>
+  <TestList_SettingsFoundFormat>{0} checklist file(s), {1} test item(s) found.</TestList_SettingsFoundFormat>
+
+  <!-- Counters and metadata -->
+  <TestList_ProgressFormat>{0}/{1} tested  |  {2} working  {3} broken  {4} untested</TestList_ProgressFormat>
+  <TestList_SummaryFormat>{0} working / {1} broken / {2} untested</TestList_SummaryFormat>
+  <TestList_LineFormat>line {0}</TestList_LineFormat>
+  <TestList_SourceXml>XML</TestList_SourceXml>
+  <TestList_SourceMd>Markdown</TestList_SourceMd>
+  <TestList_ParseErrorFormat>Could not read this checklist: {0}</TestList_ParseErrorFormat>
+  <TestList_SaveStateIdle>Saved</TestList_SaveStateIdle>
+  <TestList_SaveStatePending>Saving...</TestList_SaveStatePending>
+  <TestList_SaveStateError>Save failed</TestList_SaveStateError>
+  <TestList_OutputPathFormat>Writes to: {0}</TestList_OutputPathFormat>
+  <TestList_Copied>Copied to clipboard.</TestList_Copied>
+
+  <!-- Settings labels -->
+  <TestList_SettingEnable>Enable in-game checklist overlay</TestList_SettingEnable>
+  <TestList_SettingShowButton>Show the checklist button in the bottom bar</TestList_SettingShowButton>
+  <TestList_SettingWindowWidth>Panel width</TestList_SettingWindowWidth>
+  <TestList_SettingMaxBlockHeight>Max content height per entry before its own scrollbar</TestList_SettingMaxBlockHeight>
+  <TestList_SettingAutoSaveDelay>Auto-save delay after a change (seconds)</TestList_SettingAutoSaveDelay>
+  <TestList_SettingWriteShared>Also write a combined /TestList/TestList.feedback.md per mod</TestList_SettingWriteShared>
+  <TestList_SettingExtraPaths>Extra folders to scan (one absolute path per line)</TestList_SettingExtraPaths>
+  <TestList_SettingAutoExpandFirst>Expand an entry automatically when it is marked broken</TestList_SettingAutoExpandFirst>
+  <TestList_RestartRequired>Applies immediately; the panel refreshes when you change it.</TestList_RestartRequired>
+</LanguageData>

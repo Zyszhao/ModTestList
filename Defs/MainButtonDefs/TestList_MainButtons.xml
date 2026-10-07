@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    The bottom-bar button that opens the test checklist panel.
+
+    No `defaultHotKey` / `hotKey` on purpose: this mod must not consume any key.
+    No `tabWindowClass`: this button owns a Window, not a MainTabWindow; the worker in
+    Source/UI/MainButtonWorker_TestList.cs opens it.
+
+    No `iconPath` on purpose: Core's UI textures are packed in Unity asset bundles rather than
+    loose PNG files, so pointing at one is a needless missing-texture risk. A label-only button
+    is exactly how vanilla's work/schedule/assign/animals tabs already work.
+
+    `order` places it immediately before the vanilla "menu" tab (order 500), i.e. at the
+    right-hand end of the bottom bar next to the menu button.
+  -->
+  <MainButtonDef>
+    <defName>TestList_Checklist</defName>
+    <label>测试清单</label>
+    <description>打开或关闭测试清单面板：逐条标记「正常 / 异常 / 未测试」并记录反馈，结果自动保存到各模组 /TestList 下的反馈文件。</description>
+    <workerClass>TestList.MainButtonWorker_TestList</workerClass>
+    <order>450</order>
+    <validWithoutMap>true</validWithoutMap>
+    <closesWorldView>true</closesWorldView>
+    <canBeTutorDenied>false</canBeTutorDenied>
+  </MainButtonDef>
+
+</Defs>

@@ -224,9 +224,15 @@ The id key for these is the `<defName>` (`RukayaSAMLauncher`, `RukayaSkyIntercep
 
 ### 5.4 Scanner-level result for a real checklist
 
-Scanning `E:\...\Mods\TestList\TestList` (one file, `防空系统.md`) gives one document:
-`FileBaseName = 防空系统`, `ModName = TestList`, `Title = 卢卡娅防空系统验证清单`,
-38 entries, and `FeedbackPath = <folder>\防空系统.feedback.md`. After a feedback file is
+The bundled layout sample `Verify/fixtures/防空系统.md` doubles as the end-to-end fixture.
+It deliberately lives **outside** any `/TestList` folder, so the game never ingests it as a
+real checklist; only the verification tool scans it, via
+`pwsh -NoProfile -File Verify\e2e.ps1`.
+
+Scanning `E:\...\Mods\TestList\Verify\fixtures` (one file, `防空系统.md`) gives one document:
+`FileBaseName = 防空系统`, `ModName = fixtures`, `Title = 卢卡娅防空系统验证清单`,
+6 entries (document title + 2 groups + 3 items), and `FeedbackPath = <folder>\防空系统.feedback.md`.
+After a feedback file is
 written there, a rescan still reports exactly one document (the `.feedback.md` is skipped)
 and `ReadFeedback` restores marks by id.
 

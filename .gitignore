@@ -13,6 +13,10 @@ Verify/out/
 Verify/out-e2e/
 Verify/tmp/
 
-# Your own test-run output. The tracked TestList/*.md are the checklists;
-# the *.feedback.md files hold personal test results and are not part of the mod.
+# Your own test-run output. Tracked checklist files (e.g. Verify/fixtures/*.md) are the
+# source lists; the *.feedback.md files hold personal test results and are not part of the mod.
 TestList/*.feedback.md
+
+# Verify\e2e.ps1 writes a feedback file into the fixture folder and deletes it again;
+# this keeps a crashed run from leaving one behind.
+Verify/fixtures/*.feedback.md

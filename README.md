@@ -43,6 +43,9 @@ RimWorld/Mods/
   `TestList.feedback.md`、或首行是 `<!-- TestList feedback` 的文件都会被跳过。
 - 空文件仍会列出（显示为 0 项），这样你能看到「这个文件存在但还没写内容」。
 - 单个文件超过 4 MB 会被跳过并在日志里说明。
+- **`/TestList` 之外的文件永远不会被读取。** 所以参考用的示例清单不放进任何 `/TestList`：
+  随本模组附带的排版示例在 [`Verify/fixtures/防空系统.md`](Verify/fixtures/防空系统.md)，
+  只被验证脚本使用，不会出现在面板里和真实清单混在一起。
 
 ---
 
@@ -263,7 +266,7 @@ pwsh -NoProfile -File Verify\verify.ps1
 | `Source/Parsing/` | Markdown / XML 解析与 `/TestList` 扫描（纯逻辑，无 Verse 依赖） |
 | `Source/Feedback/` | 反馈文件读写（纯逻辑，无 Verse 依赖） |
 | `Source/UI/` | 浮窗、标记栏、折叠项、悬浮按钮、Harmony 钩子 |
-| `Verify/` | 游戏外验证工具 |
+| `Verify/` | 游戏外验证工具（`Verify/fixtures/` 放随模组附带的排版示例清单，不在任何 `/TestList` 里，不会被游戏扫描） |
 
 > `Source/Parsing` 和 `Source/Feedback` 不允许使用 Verse / RimWorld / UnityEngine 类型
 > （ModLister 调用必须包在 `#if !TESTLIST_NO_VERSE` 里），这样它们才能在游戏外被验证。

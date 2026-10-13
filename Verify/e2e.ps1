@@ -1,7 +1,8 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    End-to-end acceptance run against a REAL /TestList folder on disk.
+    End-to-end acceptance run against a REAL checklist folder on disk
+    (default: Verify\fixtures).
 
 .DESCRIPTION
     Compiles Verify/E2E.cs together with the mod's pure-logic sources and runs the full
@@ -33,12 +34,14 @@ $here = $PSScriptRoot
 $root = Split-Path -Parent $here
 
 if (-not $Folder) {
-    # Default to the checklist bundled in this mod's own /TestList folder. That copy is
+    # Default to the fixture checklist under Verify\fixtures. It is deliberately NOT inside
+    # a /TestList folder: the game scans every enabled mod's /TestList, so a sample kept
+    # there would appear in the panel mixed in with real checklists. The fixture is still
     # inside the workspace, so the verification process can write the feedback file there.
     # (A feedback file written to a mod OUTSIDE the workspace may be blocked when the
     #  harness runs under a restricted file sandbox - that is a sandbox property, not a
     #  mod property: RimWorld itself is not sandboxed and writes wherever it is told.)
-    $Folder = Join-Path $root 'TestList'
+    $Folder = Join-Path $root 'Verify\fixtures'
 }
 
 function Find-Net48RefDir {

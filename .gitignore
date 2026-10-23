@@ -7,6 +7,8 @@
 
 # Debug symbols: the shipped DLL is enough, symbols would just bloat the repo
 1.6/Assemblies/*.pdb
+1.7/Assemblies/*.pdb
+1.7/Assemblies/*.deps.json
 
 # Verification scratch data
 Verify/out/

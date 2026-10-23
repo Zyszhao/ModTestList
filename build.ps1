@@ -4,9 +4,9 @@
     Builds the TestList RimWorld mod.
 
 .DESCRIPTION
-    Locates the RimWorld 1.6 installation, locates a 0Harmony.dll (shipped by the
+    Locates the RimWorld installation, locates a 0Harmony.dll (shipped by the
     Harmony workshop mod), and compiles Source\**\*.cs into
-    1.6\Assemblies\TestList.dll using the .NET SDK.
+    <version>\Assemblies\TestList.dll using the .NET SDK (10.0+ for RimWorld 1.7).
 
     Every path can be overridden with a parameter. The script fails loudly with an
     actionable message when a prerequisite is missing; it never silently produces a
@@ -20,6 +20,8 @@
 param(
     [string]$RimWorldDir,
     [string]$HarmonyDllPath,
+    [ValidateSet('1.6', '1.7')]
+    [string]$RimWorldVersion,
     [ValidateSet('Debug', 'Release')]
     [string]$Configuration = 'Release',
     [switch]$NoRestore
@@ -37,7 +39,8 @@ function Find-RimWorldDir {
     # The mod lives at <RimWorld>\Mods\TestList, so the install root is two levels up.
     $candidates.Add((Split-Path -Parent (Split-Path -Parent $root)))
     foreach ($c in $candidates) {
-        if ($c -and (Test-Path (Join-Path $c 'RimWorldWin64_Data\Managed\Assembly-CSharp.dll'))) {
+        if ($c -and ((Test-Path (Join-Path $c 'Assembly-CSharp.dll')) -or
+                     (Test-Path (Join-Path $c 'RimWorldWin64_Data\Managed\Assembly-CSharp.dll')))) {
             return (Resolve-Path $c).Path
         }
     }
@@ -45,22 +48,21 @@ function Find-RimWorldDir {
 }
 
 function Find-HarmonyDll {
-    param([string]$Explicit, [string]$RwDir)
+    param([string]$Explicit, [string]$RwDir, [string]$Version, [string]$ManagedDir)
     $candidates = New-Object System.Collections.Generic.List[string]
     if ($Explicit) { $candidates.Add($Explicit) }
     if ($env:HARMONY_DLL_PATH) { $candidates.Add($env:HARMONY_DLL_PATH) }
-    # Sibling mods in this installation bundle 0Harmony.dll.
+    # Prefer the matching official Harmony workshop assembly.
+    $steamApps = Split-Path -Parent (Split-Path -Parent $RwDir)
+    $workshop = Join-Path $steamApps 'workshop\content\294100\2009463077'
+    $candidates.Add((Join-Path $workshop "$Version\Assemblies\0Harmony.dll"))
+    $candidates.Add((Join-Path $workshop 'Current\Assemblies\0Harmony.dll'))
+    # Sibling mods in this installation may bundle 0Harmony.dll.
     foreach ($sibling in @('Rukaya Race', 'Rukaya Race_Test_AntiAir')) {
-        $candidates.Add((Join-Path $RwDir "Mods\$sibling\1.6\Assemblies\0Harmony.dll"))
-    }
-    # The Harmony workshop mod itself.
-    foreach ($id in @('2009463077')) {
-        foreach ($sub in @('Current', '1.6')) {
-            $candidates.Add("E:\SteamLibrary\steamapps\workshop\content\294100\$id\$sub\Assemblies\0Harmony.dll")
-        }
+        $candidates.Add((Join-Path $RwDir "Mods\$sibling\$Version\Assemblies\0Harmony.dll"))
     }
     # RimWorld ships 0Harmony as part of the managed folder in some builds.
-    $candidates.Add((Join-Path $RwDir 'RimWorldWin64_Data\Managed\0Harmony.dll'))
+    $candidates.Add((Join-Path $ManagedDir '0Harmony.dll'))
     foreach ($c in $candidates) {
         if ($c -and (Test-Path $c)) { return (Resolve-Path $c).Path }
     }
@@ -68,15 +70,30 @@ function Find-HarmonyDll {
 }
 
 $rwDir = Find-RimWorldDir -Explicit $RimWorldDir
-$managedDir = Join-Path $rwDir 'RimWorldWin64_Data\Managed'
-$harmony = Find-HarmonyDll -Explicit $HarmonyDllPath -RwDir $rwDir
+$versionFile = Join-Path $rwDir 'Version.txt'
+if (-not (Test-Path $versionFile)) { throw "RimWorld Version.txt not found in $rwDir." }
+$installedVersion = (Get-Content -LiteralPath $versionFile -Raw).Trim()
+if ($installedVersion -notmatch '^(1\.[67])(?:\.|\s|$)') {
+    throw "Unsupported RimWorld version: $installedVersion. Supported: 1.6, 1.7."
+}
+$detectedVersion = $Matches[1]
+if ($RimWorldVersion -and $RimWorldVersion -ne $detectedVersion) {
+    throw "Requested $RimWorldVersion but installation is $installedVersion. Use a matching -RimWorldDir."
+}
+$RimWorldVersion = $detectedVersion
+$managedDir = if ($RimWorldVersion -eq '1.7') { $rwDir } else { Join-Path $rwDir 'RimWorldWin64_Data\Managed' }
+if (-not (Test-Path (Join-Path $managedDir 'Assembly-CSharp.dll'))) {
+    throw "Game assembly missing from $managedDir."
+}
+$harmony = Find-HarmonyDll -Explicit $HarmonyDllPath -RwDir $rwDir -Version $RimWorldVersion -ManagedDir $managedDir
 
 Write-Host "RimWorld    : $rwDir"
+Write-Host "Version     : $installedVersion"
 Write-Host "Managed dir : $managedDir"
 Write-Host "0Harmony    : $harmony"
 Write-Host "Config      : $Configuration"
 
-$dll = Join-Path $root '1.6\Assemblies\TestList.dll'
+$dll = Join-Path $root "$RimWorldVersion\Assemblies\TestList.dll"
 if (Test-Path $dll) {
     Write-Host "Removing previous build output to avoid stale artifacts."
     Remove-Item $dll -Force
@@ -95,6 +112,7 @@ $buildArgs = @(
     'build', (Join-Path $root 'TestList.csproj'),
     '-c', $Configuration,
     "-p:RimWorldManagedDir=$managedDir",
+    "-p:RimWorldVersion=$RimWorldVersion",
     "-p:HarmonyDllPath=$harmony",
     '-v:minimal'
 )

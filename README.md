@@ -5,7 +5,7 @@
 **目的**：不再需要切出游戏打开文本编辑器。你写好测试清单，进游戏照着测，测完当场标记
 「正常 / 异常 / 未测试」并写下反馈，模组自动把结果保存成 Markdown 文件。
 
-- 支持 RimWorld **1.6**
+- 支持 RimWorld **1.6 / 1.7**（1.7 构建已针对 **1.7.4985 rev1269** 验证）
 - 需要 **Harmony**（`brrainz.harmony`）
 - 兼容存档：本模组不写入存档数据，只读写 `/TestList` 文件夹，可随时安全移除
 
@@ -14,7 +14,7 @@
 ## 1. 安装
 
 1. 把 `TestList` 文件夹放进 `RimWorld/Mods/`。
-2. 确认 `1.6/Assemblies/TestList.dll` 存在（源码编译见 [第 6 节](#6-从源码编译)）。
+2. 确认对应版本的 `1.6/Assemblies/TestList.dll` 或 `1.7/Assemblies/TestList.dll` 存在（源码编译见第 8 节）。`LoadFolders.xml` 会选择当前游戏版本的程序集，并加载共用的 Defs 与翻译。
 3. 在模组列表里启用 **TestList 测试清单**（必须在 Harmony 之后）。
 4. 在你想测试的每个模组根目录下建立 `TestList` 文件夹，放入 `.md` 或 `.xml` 清单。
 
@@ -242,15 +242,25 @@ XML 格式错误时会自动回退成按 Markdown 解析，不会报错中断。
 ## 8. 开发者：构建与验证
 
 ```powershell
-# 编译模组 -> 1.6/Assemblies/TestList.dll
+# 自动检测安装的游戏版本，编译到 <版本>/Assemblies/TestList.dll
 pwsh -NoProfile -File build.ps1
 
-# 无 RimWorld 环境下验证解析与反馈读写（headless）
+# 使用 .NET 10 验证 1.7 的解析与反馈读写（无需启动游戏）
+dotnet run --project Verify/TestList.Verify.csproj -c Release -- --data Verify/tmp/net10
+
+# 保留 .NET Framework 4.8 验证，以及真实清单端到端验证
 pwsh -NoProfile -File Verify\verify.ps1
+pwsh -NoProfile -File Verify\e2e.ps1
 ```
 
 `build.ps1` 会自动定位 RimWorld 安装目录和 `0Harmony.dll`；也可以用参数覆盖：
-`-RimWorldDir`、`-HarmonyDllPath`、`-Configuration`。
+`-RimWorldDir`、`-HarmonyDllPath`、`-Configuration`。可用 `-RimWorldVersion 1.6` 或 `1.7`
+校验目标版本；与安装版本不符时会拒绝构建，防止覆盖错误版本的 DLL。
+
+RimWorld 1.7 使用 .NET 10 / Waylith，构建需要 **.NET SDK 10.0+**，引用游戏根目录的
+`Assembly-CSharp.dll`、`UnityStubs.dll`、`Waylith.UnityCompat.dll` 与 Harmony 的 1.7 程序集。
+1.6 继续使用 .NET Framework 4.8 和 Unity Managed 目录；仓库保留原有 1.6 DLL，
+重新构建 1.6 时必须指定实际的 1.6 安装目录。游戏及 Harmony 的 DLL 不随模组分发。
 
 `verify.ps1` 用 `TESTLIST_NO_VERSE` 条件编译，把
 `Source/Core`、`Source/Parsing`、`Source/Feedback` 里的纯逻辑代码编成控制台程序，

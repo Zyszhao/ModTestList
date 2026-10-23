@@ -5,6 +5,7 @@
 	<packageId>zyshzao.testlist</packageId>
 	<supportedVersions>
 		<li>1.6</li>
+		<li>1.7</li>
 	</supportedVersions>
 	<description>读取所有已启用模组根目录下 /TestList 文件夹中的 .md / .xml 测试清单，在游戏内以浮动、可折叠、可滚动的面板展示，并允许逐条标记“正常 / 异常 / 未测试”与填写反馈。所有标记与反馈会自动保存回对应模组 /TestList 下的 &lt;文件名&gt;.feedback.md。
 

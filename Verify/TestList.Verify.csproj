@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <DefineConstants>TESTLIST_NO_VERSE</DefineConstants>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs;Suites.cs" />
+    <Compile Include="../Source/Core/TestListModels.cs;../Source/Core/TestListLog.cs" />
+    <Compile Include="../Source/Parsing/**/*.cs;../Source/Feedback/**/*.cs" />
+  </ItemGroup>
+</Project>
